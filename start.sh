@@ -1,10 +1,22 @@
 #!/bin/bash
 cd ~/MeteoDash
+
+# Start the frontend
 cd ./meteo-dash
 serve -s dist &
+FRONTEND_PID=$!
+
+# Start the backend
+cd ../pyBackend
+source ../meteo-dash/.venv/bin/activate  # Activate the virtual environment
+python server.py &
+BACKEND_PID=$!
+
+# Launch the browser in kiosk mode
 cd ..
-python ./pyBackend/server.py &
-chromium-browser --kiosk "http://localhost:3000" &
-echo "Setup Complete"
+chromium-browser --kiosk  "http://localhost:3000" &
+BROWSER_PID=$!
 
-
+# Wait for user interrupt to clean up processes
+trap "kill $FRONTEND_PID $BACKEND_PID $BROWSER_PID" SIGINT
+wait
