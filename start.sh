@@ -8,13 +8,21 @@ FRONTEND_PID=$!
 
 # Start the backend
 cd ../pyBackend
-source /.venv/bin/activate  # Activate the virtual environment
-python server.py &
-BACKEND_PID=$!
+# Activate the virtual environment
+if [ -f .venv/bin/activate ]; then
+    source .venv/bin/activate
+    echo "Python executable: $(which python)"
+    echo "Active environment: $VIRTUAL_ENV"
+    python server.py &
+    BACKEND_PID=$!
+else
+    echo "Virtual environment not found in ~/MeteoDash/pyBackend/.venv"
+    exit 1
+fi
 
 # Launch the browser in kiosk mode
 cd ..
-chromium-browser --kiosk  "http://localhost:3000" &
+chromium-browser --kiosk "http://localhost:3000" &
 BROWSER_PID=$!
 
 # Wait for user interrupt to clean up processes
