@@ -8,7 +8,7 @@ FRONTEND_PID=$!
 
 # Start the backend
 cd ../pyBackend
-source ../meteo-dash/.venv/bin/activate  # Activate the virtual environment
+source /.venv/bin/activate  # Activate the virtual environment
 python server.py &
 BACKEND_PID=$!
 
