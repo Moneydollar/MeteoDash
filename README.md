@@ -8,5 +8,5 @@ This is my final digital electronics project
 - Python 3 Flask/Flask_CORS
 - Adafruit Circuit Python libraries
 - LXDE
-- Arch Linux ARM
+- Raspberry Pi OS
 - Raspberry Pi 3 B+
